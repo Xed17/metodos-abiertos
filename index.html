@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Métodos Numéricos · Métodos Abiertos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <h1 class="main-title">Métodos Numéricos</h1>
+      <p class="main-subtitle">Punto Fijo · Newton-Raphson · Secante</p>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <div class="container">
+      <div class="tabs-list" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="tab-punto-fijo">Problema 1: Punto Fijo</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-newton">Problema 2: Newton-Raphson</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-secante">Problema 3: Secante</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container main-content">
+
+    <!-- PROBLEMA 1: PUNTO FIJO -->
+    <section id="tab-punto-fijo" class="tab-panel active" role="tabpanel">
+      <h2 class="problem-title">Control de Temperatura en Reactor</h2>
+      <p class="problem-desc">Determinar la temperatura de equilibrio \(T\) (°C) para la cual se satisface el balance térmico del reactor químico.</p>
+
+      <div class="equation-box">
+        \[ T = g(T) = 18 + 8e^{-0.15T} \qquad \Longleftrightarrow \qquad f(T) = T - 18 - 8e^{-0.15T} = 0 \]
+      </div>
+
+      <div class="params-bar">
+        <div class="param-field">
+          <label for="p1-x0">\(T_0\) (°C):</label>
+          <input type="number" id="p1-x0" value="20" step="any">
+        </div>
+        <div class="param-field">
+          <label for="p1-tol">Tolerancia (%):</label>
+          <input type="number" id="p1-tol" value="0.01" step="any" min="0.000001">
+        </div>
+        <div class="param-field">
+          <label for="p1-max-iter">Máx. Iteraciones:</label>
+          <input type="number" id="p1-max-iter" value="50" min="1" max="500">
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-resolver-p1">Ejecutar Punto Fijo</button>
+      </div>
+
+      <p class="inline-info">
+        <strong>Condición de convergencia:</strong>
+        \(g'(T) = -1.2e^{-0.15T} \quad\rightarrow\quad |g'(20)| = \mathbf{0.059738} < 1 \quad (\text{✓ Convergencia garantizada})\)
+      </p>
+
+      <hr class="section-divider">
+      <div id="resultado-punto-fijo"></div>
+    </section>
+
+    <!-- PROBLEMA 2: NEWTON-RAPHSON -->
+    <section id="tab-newton" class="tab-panel" role="tabpanel">
+      <h2 class="problem-title">Tiempo de Respuesta en Almacenamiento SSD</h2>
+      <p class="problem-desc">Determinar el tiempo crítico de respuesta \(t\) (ms) en el cual se estabiliza la tasa de transferencia.</p>
+
+      <div class="equation-box">
+        \[ f(t) = t^3 - 7t - 5 = 0 \qquad \text{con} \qquad f'(t) = 3t^2 - 7 \]
+      </div>
+
+      <div class="params-bar">
+        <div class="param-field">
+          <label for="p2-x0">\(t_0\) (ms):</label>
+          <input type="number" id="p2-x0" value="3" step="any">
+        </div>
+        <div class="param-field">
+          <label for="p2-tol">Tolerancia (%):</label>
+          <input type="number" id="p2-tol" value="0.01" step="any" min="0.000001">
+        </div>
+        <div class="param-field">
+          <label for="p2-max-iter">Máx. Iteraciones:</label>
+          <input type="number" id="p2-max-iter" value="50" min="1" max="500">
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-resolver-p2">Ejecutar Newton-Raphson</button>
+      </div>
+
+      <p class="inline-info">
+        <strong>Verificación de signos:</strong>
+        \(f(2) = \mathbf{-11} < 0\), \(f(3) = \mathbf{1} > 0 \quad\rightarrow\quad \text{✓ Raíz en } [2, 3] \text{ detectada} \quad\cdot\quad f'(3) = \mathbf{20} \neq 0\)
+      </p>
+
+      <hr class="section-divider">
+      <div id="resultado-newton"></div>
+    </section>
+
+    <!-- PROBLEMA 3: SECANTE -->
+    <section id="tab-secante" class="tab-panel" role="tabpanel">
+      <h2 class="problem-title">Rendimiento de Servidor de Cómputo</h2>
+      <p class="problem-desc">Determinar la fracción normalizada de carga \(x\) en el clúster donde se equilibran la llegada de peticiones y la latencia.</p>
+
+      <div class="equation-box">
+        \[ f(x) = e^{-x} - x^2 + 0.2 = 0 \]
+      </div>
+
+      <div class="params-bar">
+        <div class="param-field">
+          <label for="p3-x0">\(x_0\):</label>
+          <input type="number" id="p3-x0" value="0" step="any">
+        </div>
+        <div class="param-field">
+          <label for="p3-x1">\(x_1\):</label>
+          <input type="number" id="p3-x1" value="1" step="any">
+        </div>
+        <div class="param-field">
+          <label for="p3-tol">Tolerancia (%):</label>
+          <input type="number" id="p3-tol" value="0.01" step="any" min="0.000001">
+        </div>
+        <div class="param-field">
+          <label for="p3-max-iter">Máx. Iteraciones:</label>
+          <input type="number" id="p3-max-iter" value="50" min="1" max="500">
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-resolver-p3">Ejecutar Secante</button>
+      </div>
+
+      <p class="inline-info">
+        <strong>Verificación de signos:</strong>
+        \(f(0) = \mathbf{1.200000} > 0\), \(f(1) = \mathbf{-0.432121} < 0 \quad\rightarrow\quad \text{✓ Raíz en } [0, 1] \text{ detectada}\)
+      </p>
+
+      <hr class="section-divider">
+      <div id="resultado-secante"></div>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
