@@ -238,3 +238,239 @@ body {
   height: 280px;
   width: 100%;
 }
+
+/* ==========================================================================
+   Editor de Ecuaciones Interactivo
+   ========================================================================== */
+.equation-editor-card {
+  background-color: var(--fondo-caja);
+  border: 1px solid var(--borde-suave);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.eq-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.eq-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primario);
+  background: #ede9fe;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.eq-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--texto-secundario);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-text:hover {
+  color: var(--primario);
+  background-color: #f1f5f9;
+}
+
+.eq-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 680px) {
+  .eq-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eq-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.eq-input-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.eq-input-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto-cuerpo);
+}
+
+.eq-text-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: var(--texto-cuerpo);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+}
+
+.eq-text-input:focus {
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.12);
+}
+
+.eq-preview-box {
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.9rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+  font-size: 1.05rem;
+}
+
+/* Alertas de Validación */
+.alert-container {
+  margin: 0.75rem 0;
+}
+
+.alert-box {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.alert-warning {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.alert-info {
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+/* ==========================================================================
+   Desarrollo Matemático Paso a Paso (Bloque Continuo)
+   ========================================================================== */
+.pasos-container {
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.paso-card {
+  border: 1px solid var(--borde-suave);
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 1.15rem 1.35rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.paso-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.paso-card.paso-convergente {
+  border: 2px solid #86efac;
+  background-color: #f0fdf4;
+}
+
+.paso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.paso-titulo {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--texto-titulo);
+}
+
+.paso-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.paso-badge-calc {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.paso-badge-fin {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.paso-math-block {
+  background-color: var(--fondo-caja);
+  border: 1px solid #f1f5f9;
+  border-radius: 6px;
+  padding: 0.85rem 1.15rem;
+  margin: 0.65rem 0;
+  overflow-x: auto;
+  font-size: 1.02rem;
+}
+
+.paso-card.paso-convergente .paso-math-block {
+  background-color: #ffffff;
+  border-color: #bbf7d0;
+}
+
+.paso-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--texto-cuerpo);
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.paso-resumen strong {
+  color: var(--texto-titulo);
+}
+

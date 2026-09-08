@@ -31,15 +31,29 @@
     <!-- PROBLEMA 1: PUNTO FIJO -->
     <section id="tab-punto-fijo" class="tab-panel active" role="tabpanel">
       <h2 class="problem-title">Control de Temperatura en Reactor</h2>
-      <p class="problem-desc">Determinar la temperatura de equilibrio \(T\) (°C) para la cual se satisface el balance térmico del reactor químico.</p>
+      <p class="problem-desc">Determinar la temperatura de equilibrio \(T\) (°C) o resolver cualquier ecuación no lineal mediante aproximaciones sucesivas \(x_{n+1} = g(x_n)\).</p>
 
-      <div class="equation-box">
-        \[ T = g(T) = 18 + 8e^{-0.15T} \qquad \Longleftrightarrow \qquad f(T) = T - 18 - 8e^{-0.15T} = 0 \]
+      <div class="equation-editor-card">
+        <div class="eq-editor-header">
+          <span class="eq-badge">Definición de Funciones</span>
+          <button type="button" class="btn-text" id="p1-btn-restaurar" title="Restaurar valores del problema original">↺ Restaurar original</button>
+        </div>
+        <div class="eq-inputs-grid">
+          <div class="eq-input-group">
+            <label for="p1-eq-g">Función de iteración \(g(T)\) o \(g(x)\):</label>
+            <input type="text" id="p1-eq-g" class="eq-text-input" value="18 + 8 * exp(-0.15 * T)" placeholder="Ej. 18 + 8 * exp(-0.15 * T)">
+          </div>
+          <div class="eq-input-group">
+            <label for="p1-eq-f">Función original \(f(T) = 0\) (opcional para residuo):</label>
+            <input type="text" id="p1-eq-f" class="eq-text-input" value="T - 18 - 8 * exp(-0.15 * T)" placeholder="Ej. T - 18 - 8 * exp(-0.15 * T)">
+          </div>
+        </div>
+        <div class="eq-preview-box" id="p1-eq-preview"></div>
       </div>
 
       <div class="params-bar">
         <div class="param-field">
-          <label for="p1-x0">\(T_0\) (°C):</label>
+          <label for="p1-x0" id="p1-lbl-x0">\(T_0\) (°C):</label>
           <input type="number" id="p1-x0" value="20" step="any">
         </div>
         <div class="param-field">
@@ -53,10 +67,8 @@
         <button type="button" class="btn btn-primary" id="btn-resolver-p1">Ejecutar Punto Fijo</button>
       </div>
 
-      <p class="inline-info">
-        <strong>Condición de convergencia:</strong>
-        \(g'(T) = -1.2e^{-0.15T} \quad\rightarrow\quad |g'(20)| = \mathbf{0.059738} < 1 \quad (\text{✓ Convergencia garantizada})\)
-      </p>
+      <div id="p1-info-teorica" class="inline-info"></div>
+      <div id="p1-alert" class="alert-container"></div>
 
       <hr class="section-divider">
       <div id="resultado-punto-fijo"></div>
@@ -65,15 +77,32 @@
     <!-- PROBLEMA 2: NEWTON-RAPHSON -->
     <section id="tab-newton" class="tab-panel" role="tabpanel">
       <h2 class="problem-title">Tiempo de Respuesta en Almacenamiento SSD</h2>
-      <p class="problem-desc">Determinar el tiempo crítico de respuesta \(t\) (ms) en el cual se estabiliza la tasa de transferencia.</p>
+      <p class="problem-desc">Determinar el tiempo crítico de respuesta \(t\) (ms) o la raíz de cualquier función diferenciable \(f(x) = 0\) mediante la recta tangente.</p>
 
-      <div class="equation-box">
-        \[ f(t) = t^3 - 7t - 5 = 0 \qquad \text{con} \qquad f'(t) = 3t^2 - 7 \]
+      <div class="equation-editor-card">
+        <div class="eq-editor-header">
+          <span class="eq-badge">Definición de Ecuación y Derivada</span>
+          <div class="eq-actions">
+            <button type="button" class="btn-text" id="p2-btn-derivar" title="Calcular derivada simbólica automáticamente">⚡ Derivar automáticamente</button>
+            <button type="button" class="btn-text" id="p2-btn-restaurar" title="Restaurar valores del problema original">↺ Restaurar original</button>
+          </div>
+        </div>
+        <div class="eq-inputs-grid">
+          <div class="eq-input-group">
+            <label for="p2-eq-f">Función objetivo \(f(t)\) o \(f(x)\):</label>
+            <input type="text" id="p2-eq-f" class="eq-text-input" value="t^3 - 7*t - 5" placeholder="Ej. t^3 - 7*t - 5">
+          </div>
+          <div class="eq-input-group">
+            <label for="p2-eq-df">Derivada \(f'(t)\) o \(f'(x)\):</label>
+            <input type="text" id="p2-eq-df" class="eq-text-input" value="3*t^2 - 7" placeholder="Ej. 3*t^2 - 7">
+          </div>
+        </div>
+        <div class="eq-preview-box" id="p2-eq-preview"></div>
       </div>
 
       <div class="params-bar">
         <div class="param-field">
-          <label for="p2-x0">\(t_0\) (ms):</label>
+          <label for="p2-x0" id="p2-lbl-x0">\(t_0\) (ms):</label>
           <input type="number" id="p2-x0" value="3" step="any">
         </div>
         <div class="param-field">
@@ -87,10 +116,8 @@
         <button type="button" class="btn btn-primary" id="btn-resolver-p2">Ejecutar Newton-Raphson</button>
       </div>
 
-      <p class="inline-info">
-        <strong>Verificación de signos:</strong>
-        \(f(2) = \mathbf{-11} < 0\), \(f(3) = \mathbf{1} > 0 \quad\rightarrow\quad \text{✓ Raíz en } [2, 3] \text{ detectada} \quad\cdot\quad f'(3) = \mathbf{20} \neq 0\)
-      </p>
+      <div id="p2-info-teorica" class="inline-info"></div>
+      <div id="p2-alert" class="alert-container"></div>
 
       <hr class="section-divider">
       <div id="resultado-newton"></div>
@@ -99,19 +126,29 @@
     <!-- PROBLEMA 3: SECANTE -->
     <section id="tab-secante" class="tab-panel" role="tabpanel">
       <h2 class="problem-title">Rendimiento de Servidor de Cómputo</h2>
-      <p class="problem-desc">Determinar la fracción normalizada de carga \(x\) en el clúster donde se equilibran la llegada de peticiones y la latencia.</p>
+      <p class="problem-desc">Determinar la fracción normalizada de carga \(x\) o resolver cualquier ecuación no lineal \(f(x) = 0\) aproximando la derivada con dos puntos sin derivar explícitamente.</p>
 
-      <div class="equation-box">
-        \[ f(x) = e^{-x} - x^2 + 0.2 = 0 \]
+      <div class="equation-editor-card">
+        <div class="eq-editor-header">
+          <span class="eq-badge">Definición de Ecuación</span>
+          <button type="button" class="btn-text" id="p3-btn-restaurar" title="Restaurar valores del problema original">↺ Restaurar original</button>
+        </div>
+        <div class="eq-inputs-grid">
+          <div class="eq-input-group full-width">
+            <label for="p3-eq-f">Función objetivo \(f(x)\):</label>
+            <input type="text" id="p3-eq-f" class="eq-text-input" value="exp(-x) - x^2 + 0.2" placeholder="Ej. exp(-x) - x^2 + 0.2">
+          </div>
+        </div>
+        <div class="eq-preview-box" id="p3-eq-preview"></div>
       </div>
 
       <div class="params-bar">
         <div class="param-field">
-          <label for="p3-x0">\(x_0\):</label>
+          <label for="p3-x0" id="p3-lbl-x0">\(x_0\):</label>
           <input type="number" id="p3-x0" value="0" step="any">
         </div>
         <div class="param-field">
-          <label for="p3-x1">\(x_1\):</label>
+          <label for="p3-x1" id="p3-lbl-x1">\(x_1\):</label>
           <input type="number" id="p3-x1" value="1" step="any">
         </div>
         <div class="param-field">
@@ -125,10 +162,8 @@
         <button type="button" class="btn btn-primary" id="btn-resolver-p3">Ejecutar Secante</button>
       </div>
 
-      <p class="inline-info">
-        <strong>Verificación de signos:</strong>
-        \(f(0) = \mathbf{1.200000} > 0\), \(f(1) = \mathbf{-0.432121} < 0 \quad\rightarrow\quad \text{✓ Raíz en } [0, 1] \text{ detectada}\)
-      </p>
+      <div id="p3-info-teorica" class="inline-info"></div>
+      <div id="p3-alert" class="alert-container"></div>
 
       <hr class="section-divider">
       <div id="resultado-secante"></div>
@@ -139,6 +174,7 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@12.4.1/lib/browser/math.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
